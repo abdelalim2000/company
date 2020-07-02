@@ -41,3 +41,45 @@ if (isset($_POST['submit'])) {
 $dataView_sql = "SELECT * FROM employee_data";
 
 $data = $conn->query($dataView_sql);
+
+//Delete the data
+
+if (isset($_GET['delete'])) {
+    $id = $_GET['delete'];
+    $delete_sql = "DELETE FROM employee_data WHERE id=$id";
+
+    $conn->query($delete_sql);
+
+    header("Location: index.php");
+}
+
+//update Data
+
+if (isset($_GET['update'])) {
+    $id = $_GET['update'];
+    $dataUpdateView_sql = "SELECT * FROM employee_data WHERE id=$id";
+    $data = $conn->query($dataUpdateView_sql);
+}
+
+#edit DATA
+if (isset($_POST['edit'])) {
+    if (isset($_GET['update'])) {
+        $id = $_GET['id'];
+        $firstName = $_POST['firstName'];
+        $lastName = $_POST['lastName'];
+        $email = $_POST['email'];
+        $address = $_POST['address'];
+        $phone = $_POST['phone'];
+        $salary = $_POST['salary'];
+        $jobTitle = $_POST['jobTitle'];
+        $editEmployee_sql = "UPDATE `employee_data` SET `first_name` = '$firstName',
+            `last_name` = '$lastName',
+            `email` = '$email',
+            `phone` = '$phone',
+            `address` = '$address',
+            `job_title` = '$jobTitle',
+            `salary` = '$salary' WHERE `id` = '$id'";
+        $conn->query($editEmployee_sql);
+    }
+    header('Location: index.php');
+}
