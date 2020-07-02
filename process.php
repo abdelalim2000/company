@@ -9,6 +9,8 @@ require "DB.php";
 
 session_start();
 
+
+
 if ($conn->connect_error) {
     die("Connection Error");
 }
@@ -32,3 +34,10 @@ if (isset($_POST['submit'])) {
     $conn->query($addEmployee_sql);
     header("Location: index.php");
 }
+
+
+// view Data
+
+$dataView_sql = "SELECT * FROM employee_data";
+
+$data = $conn->query($dataView_sql);
